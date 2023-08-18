@@ -1,0 +1,25 @@
+#bin/sh
+. $(dirname "$0")/_/husky.sh
+
+echo ' styling testing building your project before commiting ';
+
+# check eslint
+
+npm run check-lint || {
+    echo 'eslint check failed. make the required changes listed above, add cahnges and try to commit again';
+    false;
+}
+
+# check type
+
+npm run check-type || {
+    echo ' failed check type. make the required changes listed above, add cahnges and try to commit again';
+    false;
+}
+
+npm run build || {
+    echo 'your build failed. check the error above'
+    false;
+}
+
+echo 'success commit'
